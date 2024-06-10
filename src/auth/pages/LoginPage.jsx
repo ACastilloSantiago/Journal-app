@@ -1,6 +1,7 @@
 // ! Orden de jerarquía ( Redux tiene mas peso, luego react router, despues material, etc )
+import { useMemo } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Google, Password } from '@mui/icons-material';
@@ -13,6 +14,10 @@ import { checkingAuthentication, startGoogleSignIn } from '../../store/';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
+
+  const { status } = useSelector((state) => state.auth);
+
+  const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
   const { email, password, onInputChange } = useForm({
     email: 'santiago@gmail.com',
@@ -61,12 +66,22 @@ export const LoginPage = () => {
 
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
             <Grid item xs={12} sm={6}>
-              <Button variant="contained" fullWidth type="submit">
+              <Button
+                disabled={isAuthenticating}
+                variant="contained"
+                fullWidth
+                type="submit"
+              >
                 Login
               </Button>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button variant="contained" fullWidth onClick={onGoogleSignIn}>
+              <Button
+                disabled={isAuthenticating}
+                variant="contained"
+                fullWidth
+                onClick={onGoogleSignIn}
+              >
                 <Google />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
               </Button>
