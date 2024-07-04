@@ -23,6 +23,7 @@ export const JournalPage = () => {
             backgroundColor: 'error.main',
           },
           position: 'fixed',
+          zIndex: 1,
           bottom: 50,
           right: 50,
         }}
