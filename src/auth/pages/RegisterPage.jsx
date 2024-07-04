@@ -16,9 +16,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { startCreatingUserWithEmailPassword } from '../../store/thunks';
 
 const formData = {
-  email: 'santiago@gmail.com',
-  password: '123456',
-  displayName: 'Santiago Castillo',
+  email: '',
+  password: '',
+  displayName: '',
 };
 
 const formValidations = {
@@ -64,7 +64,10 @@ export const RegisterPage = () => {
     <AuthLayout title="Crear cuenta">
       <h1>Form Valid: {isFormValid ? 'Valido' : 'Incorrecto'} </h1>
 
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+      >
         <Grid container>
           <Grid item xs={12} sx={{ marginTop: 2 }}>
             <TextField
@@ -108,14 +111,12 @@ export const RegisterPage = () => {
             />
           </Grid>
 
-          <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} id='ss'>
-            <Grid item xs={12}
-            
-            display={!!errorMessage ? '' : 'none'}>
+          <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} id="ss">
+            <Grid item xs={12} display={!!errorMessage ? '' : 'none'}>
               <Alert severity="error">{errorMessage}</Alert>
             </Grid>
-          
-            <Grid item xs={12} >
+
+            <Grid item xs={12}>
               <Button
                 variant="contained"
                 fullWidth
