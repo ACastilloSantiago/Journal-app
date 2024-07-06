@@ -13,7 +13,6 @@ export const JournalPage = () => {
   };
 
   const { isSaving, active } = useSelector((state) => state.journal);
-  console.log(isSaving);
   return (
     <JournalLayout>
       {/* <Typography>
