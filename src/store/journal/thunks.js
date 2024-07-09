@@ -5,8 +5,10 @@ import {
   savingNewNote,
   setActiveNote,
   setNotes,
+  setSaving,
+  updateNote,
 } from './journalSlice';
-import { loadNotes } from '../../helpers/';
+import { fileUpload, loadNotes } from '../../helpers/';
 
 export const startNewNote = () => {
   return async (dispatch, getState) => {
@@ -35,10 +37,40 @@ export const startNewNote = () => {
 export const startLoadingNotes = () => {
   return async (dispatch, getState) => {
     const { uid } = await getState().auth;
-    console.log({ uid });
-
+    8;
     const notes = await loadNotes(uid);
 
     dispatch(setNotes(notes));
+  };
+};
+
+export const startSaveNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(setSaving());
+
+    const { uid } = await getState().auth;
+    const { active: note } = await getState().journal;
+
+    const noteToFireStore = { ...note };
+
+    delete noteToFireStore.id;
+
+    const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
+
+    await setDoc(docRef, noteToFireStore, { merge: true });
+
+    console.log('Save Note', { noteToFireStore });
+
+    dispatch(updateNote(note));
+  };
+};
+
+export const startUploadingFiles = (files = []) => {
+  return async (dispatch) => {
+    dispatch(setSaving());
+
+    // console.log(files);
+
+    await fileUpload(files[0]);
   };
 };
