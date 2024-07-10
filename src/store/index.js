@@ -1,2 +1,2 @@
 export * from './store'
-export * from './thunks'
+export * from './auth/thunks'
