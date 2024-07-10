@@ -1,4 +1,7 @@
+import { useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 import {
   Alert,
@@ -8,12 +11,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { AuthLayout } from '../layout/AuthLayout';
 
 import { useForm } from '../../hooks';
-import { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { startCreatingUserWithEmailPassword } from '../../store/thunks';
+import { AuthLayout } from '../layout/AuthLayout';
+import {  startCreatingUserWithEmailPassword} from "../../store/auth/thunks";
 
 const formData = {
   email: '',
